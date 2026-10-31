@@ -126,6 +126,9 @@ dependencies {
     //to read PDFs
     implementation 'com.tom-roush:pdfbox-android:2.0.27.0'
 
+    // JS plugin engine: QuickJS (ES2020, async/await, modules) with coroutine bindings
+    implementation 'io.github.dokar3:quickjs-kt-android:1.0.15'
+
     // Compose
     implementation(libs.compose.foundation)
     implementation(libs.compose.material3)
