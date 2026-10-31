@@ -47,7 +47,7 @@ import androidx.compose.ui.tooling.preview.PreviewLightDark
 import androidx.compose.ui.unit.dp
 import com.lagradost.cloudstream4.compose.whiteOutline
 import com.lagradost.cloudstream4.theme.CloudStreamPreviewTheme
-import com.lagradost.quicknovel.R
+import app.orubus.buks.R
 import com.mihon.common.preference.PreferenceData
 import com.mihon.common.preference.toggle
 import com.mihon.presentation.secondaryItemAlpha

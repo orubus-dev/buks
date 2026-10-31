@@ -180,7 +180,7 @@
 
     </com.google.android.material.appbar.AppBarLayout>
 
-    <com.lagradost.quicknovel.widget.AutofitRecyclerView
+    <app.orubus.buks.widget.AutofitRecyclerView
         android:id="@+id/mainpage_list"
 
         android:layout_width="match_parent"

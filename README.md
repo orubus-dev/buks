@@ -1,12 +1,13 @@
-# QuickNovel
+# Buks
 
 **English** | [Русский](README_RU.md)
 
-Adfree FOSS Android app for downloading novels. It also functions as an Epub reader.
+**Buks** is the Orubus mod of [QuickNovel](https://github.com/LagradOst/QuickNovel) by LagradOst — an adfree FOSS Android app for downloading novels that also works as an Epub reader. All credit for the original app goes to LagradOst and contributors.
 
-**Discord:** https://discord.gg/5Hus6fM
+**Download:** https://github.com/orubus-dev/buks/releases
 
-**Download:** https://github.com/LagradOst/QuickNovel/releases
+**Install:** grab `Buks.apk` from the latest release and open it on your phone. Buks (`app.orubus.buks`) installs alongside the original QuickNovel — they do not overwrite each other, and a new Buks version installs over the old one keeping your library and settings.
+
 
 **Providers used:** 
 
@@ -62,7 +63,7 @@ In case of copyright infringement, please directly contact the responsible parti
 
 The app is purely for educational and personal use.
 
-QuickNovel does not host any content on the app, and has no control over what media is put up or taken down. QuickNovel functions like any other search engine, such as Google. QuickNovel does not host, upload or manage any videos, films or content. It simply crawls, aggregates and displayes links in a convenient, user-friendly interface.
+Buks does not host any content on the app, and has no control over what media is put up or taken down. Buks functions like any other search engine, such as Google. Buks does not host, upload or manage any videos, films or content. It simply crawls, aggregates and displayes links in a convenient, user-friendly interface.
 
-It merely scrapes 3rd-party websites that are publicly accessable via any regular web browser. It is the responsibility of user to avoid any actions that might violate the laws governing his/her locality. Use QuickNovel at your own risk.
+It merely scrapes 3rd-party websites that are publicly accessable via any regular web browser. It is the responsibility of user to avoid any actions that might violate the laws governing his/her locality. Use Buks at your own risk.
 

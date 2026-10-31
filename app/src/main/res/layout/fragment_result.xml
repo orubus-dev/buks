@@ -760,7 +760,7 @@ Translator: Rainbow Turtle" />
                             android:visibility="gone"
                             tools:visibility="gone">
 
-                            <com.lagradost.quicknovel.widget.AutofitRecyclerView
+                            <app.orubus.buks.widget.AutofitRecyclerView
                                 android:id="@+id/related_list"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"

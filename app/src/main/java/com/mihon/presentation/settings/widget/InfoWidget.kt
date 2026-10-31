@@ -12,7 +12,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.PreviewLightDark
 import com.lagradost.cloudstream4.theme.CloudStreamPreviewTheme
-import com.lagradost.quicknovel.R
+import app.orubus.buks.R
 import com.mihon.material.padding
 import com.mihon.presentation.secondaryItemAlpha
 

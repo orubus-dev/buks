@@ -68,7 +68,7 @@
                 </FrameLayout>
 
 
-                <com.lagradost.quicknovel.widget.FlowLayout
+                <app.orubus.buks.widget.FlowLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         app:itemSpacing="10dp">
@@ -87,7 +87,7 @@
                             android:id="@+id/resultview_preview_meta_chapters"
                             style="@style/ResultInfoText"
                             tools:text="121min" />
-                </com.lagradost.quicknovel.widget.FlowLayout>
+                </app.orubus.buks.widget.FlowLayout>
 
                 <!-- <TextView
                      android:id="@+id/resultview_preview_year"

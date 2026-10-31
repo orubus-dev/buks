@@ -201,7 +201,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content" />
 
-                        <com.lagradost.quicknovel.ui.roundedbg.RoundedBgTextView
+                        <app.orubus.buks.ui.roundedbg.RoundedBgTextView
                                 android:id="@+id/read_text"
                                 android:paddingLeft="20dp"
                                 android:paddingRight="20dp"

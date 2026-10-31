@@ -3,13 +3,13 @@ package com.lagradost.cloudstream4.viewmodels
 import androidx.compose.runtime.Immutable
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.lagradost.quicknovel.mvvm.safe
+import app.orubus.buks.mvvm.safe
 import com.lagradost.cloudstream4.AppSettings
 import com.lagradost.cloudstream4.state.ActionHandler
 import com.lagradost.cloudstream4.state.DefaultStateContainer
 import com.lagradost.cloudstream4.state.SingleActiveQuery
 import com.lagradost.cloudstream4.state.StateContainer
-import com.lagradost.quicknovel.util.Coroutines.ioSafe
+import app.orubus.buks.util.Coroutines.ioSafe
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.isActive
 import kotlinx.coroutines.launch
@@ -291,7 +291,7 @@ class GithubViewModel(
         )
 
         // If on stable, only check that the display name matches
-        if (!prerelease && release.displayName == versionName) {
+        if (!prerelease && (release.displayName == versionName || release.tagName == "v$versionName")) {
             updateState {
                 copy(dialog = baseDialog.copy(state = GithubUpdateDialogState.NoUpdateFound))
             }

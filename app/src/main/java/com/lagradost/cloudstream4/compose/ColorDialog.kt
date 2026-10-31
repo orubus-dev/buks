@@ -38,7 +38,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.DialogProperties
 import com.lagradost.cloudstream4.compose.colorpicker.DoubleColorPicker
 import com.lagradost.cloudstream4.compose.colorpicker.HsvColor
-import com.lagradost.quicknovel.R
+import app.orubus.buks.R
 import com.mihon.material.Slider
 import com.mihon.material.padding
 import kotlin.math.abs

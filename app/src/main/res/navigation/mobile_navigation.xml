@@ -6,47 +6,47 @@
             app:startDestination="@+id/navigation_download">
     <fragment
             android:id="@+id/navigation_homepage"
-            android:name="com.lagradost.quicknovel.ui.home.HomeFragment"
+            android:name="app.orubus.buks.ui.home.HomeFragment"
             android:label="@string/title_home"
             android:layout_height="match_parent"
             tools:layout="@layout/fragment_home">
     </fragment>
     <fragment
             android:id="@+id/navigation_search"
-            android:name="com.lagradost.quicknovel.ui.search.SearchFragment"
+            android:name="app.orubus.buks.ui.search.SearchFragment"
             android:label="@string/title_search"
             android:layout_height="match_parent"
             tools:layout="@layout/fragment_search">
     </fragment>
     <fragment
             android:id="@+id/navigation_download"
-            android:name="com.lagradost.quicknovel.ui.download.DownloadFragment"
+            android:name="app.orubus.buks.ui.download.DownloadFragment"
             android:label="@string/title_download"
             android:layout_height="match_parent"
             tools:layout="@layout/fragment_downloads">
     </fragment>
     <fragment
             android:id="@+id/navigation_settings"
-            android:name="com.lagradost.quicknovel.ui.settings.SettingsFragment"
+            android:name="app.orubus.buks.ui.settings.SettingsFragment"
             android:label="@string/title_download"
             android:layout_height="match_parent">
     </fragment>
     <fragment
             android:id="@+id/navigation_mainpage"
-            android:name="com.lagradost.quicknovel.ui.mainpage.MainPageFragment"
+            android:name="app.orubus.buks.ui.mainpage.MainPageFragment"
             android:label="@string/title_download"
             android:layout_height="match_parent">
     </fragment>
     <fragment
             android:id="@+id/navigation_history"
-            android:name="com.lagradost.quicknovel.ui.history.HistoryFragment"
+            android:name="app.orubus.buks.ui.history.HistoryFragment"
             android:label="@string/title_download"
             android:layout_height="match_parent">
     </fragment>
 
     <fragment
             android:id="@+id/navigation_results"
-            android:name="com.lagradost.quicknovel.ui.result.ResultFragment"
+            android:name="app.orubus.buks.ui.result.ResultFragment"
             android:layout_height="match_parent">
     </fragment>
 

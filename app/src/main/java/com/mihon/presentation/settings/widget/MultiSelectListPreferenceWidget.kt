@@ -9,7 +9,7 @@ import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.window.DialogProperties
 import com.lagradost.cloudstream4.compose.MultiSelectDialog
-import com.lagradost.quicknovel.R
+import app.orubus.buks.R
 
 @Composable
 fun <T> MultiSelectListPreferenceWidget(

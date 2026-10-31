@@ -17,5 +17,5 @@ dependencyResolutionManagement {
     }
 }
 
-rootProject.name = "QuickNovel"
+rootProject.name = "Buks"
 include(":app")

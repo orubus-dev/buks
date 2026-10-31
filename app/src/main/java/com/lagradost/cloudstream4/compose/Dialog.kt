@@ -33,7 +33,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.DialogProperties
-import com.lagradost.quicknovel.R
+import app.orubus.buks.R
 import com.mihon.material.padding
 
 @Composable

@@ -7,7 +7,7 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.remember
 import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.res.stringResource
-import com.lagradost.quicknovel.R
+import app.orubus.buks.R
 import com.mihon.common.preference.PreferenceData
 import org.jetbrains.compose.resources.stringResource
 

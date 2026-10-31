@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<com.lagradost.quicknovel.ui.roundedbg.RoundedBgTextView
+<app.orubus.buks.ui.roundedbg.RoundedBgTextView
         android:paddingBottom="7.5dp"
         android:paddingTop="7.5dp"
         android:fontFamily="serif"

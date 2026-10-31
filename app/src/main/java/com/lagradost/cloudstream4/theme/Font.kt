@@ -7,7 +7,7 @@ import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.em
-import com.lagradost.quicknovel.R
+import app.orubus.buks.R
 
 object AppFont {
     val googleSans @Composable get() = FontFamily(

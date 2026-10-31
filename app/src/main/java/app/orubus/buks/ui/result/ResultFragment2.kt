@@ -1,0 +1,48 @@
+package app.orubus.buks.ui.result
+
+import android.os.Bundle
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
+import androidx.compose.runtime.getValue
+import androidx.compose.ui.platform.ComposeView
+import androidx.compose.ui.platform.ViewCompositionStrategy
+import androidx.fragment.app.Fragment
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import androidx.lifecycle.viewmodel.compose.viewModel
+import com.lagradost.cloudstream4.compose.CloudStreamThemeAppSettings
+import com.lagradost.cloudstream4.state.ObserveEffect
+import app.orubus.buks.R
+import app.orubus.buks.util.UIHelper.colorFromAttribute
+
+class ResultFragment2 : Fragment() {
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?,
+    ): View = ComposeView(inflater.context).apply {
+        setViewCompositionStrategy(ViewCompositionStrategy.DisposeOnViewTreeLifecycleDestroyed)
+
+        setContent {
+            val viewModel: ResultViewModel2 =
+                viewModel(factory = ResultViewModel2.provideFactory(requireArguments()))
+
+            CloudStreamThemeAppSettings {
+                val state by viewModel.state.collectAsStateWithLifecycle()
+
+                ObserveEffect(viewModel.effect) { _ ->
+                    // Not yet implemented
+                }
+                ResultScreen(state, viewModel::onAction)
+            }
+        }
+    }
+
+    override fun onResume() {
+        super.onResume()
+        activity?.apply {
+            window?.navigationBarColor =
+                colorFromAttribute(R.attr.primaryBlackBackground)
+        }
+    }
+}

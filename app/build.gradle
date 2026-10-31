@@ -23,11 +23,11 @@ android {
     }
 
     defaultConfig {
-        applicationId "com.lagradost.quicknovel"
+        applicationId "app.orubus.buks"
         minSdkVersion 23
         targetSdkVersion 37
-        versionCode 56
-        versionName "3.8.1"
+        versionCode 1
+        versionName "1.0.0"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
 
@@ -59,7 +59,7 @@ android {
         jvmTarget = JavaVersion.VERSION_11.toString()
         freeCompilerArgs = ['-XXLanguage:+PropertyParamAnnotationDefaultTargetMode']
     }
-    namespace 'com.lagradost.quicknovel'
+    namespace 'app.orubus.buks'
 }
 
 /*

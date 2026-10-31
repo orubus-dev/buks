@@ -33,7 +33,7 @@
                 android:contentDescription="@string/home_expanded_hide" />
     </FrameLayout>
 
-    <com.lagradost.quicknovel.widget.AutofitRecyclerView
+    <app.orubus.buks.widget.AutofitRecyclerView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/home_expanded_recycler"

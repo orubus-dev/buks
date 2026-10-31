@@ -123,10 +123,10 @@
         <Preference
                 android:title="Github"
                 android:icon="@drawable/ic_github_logo"
-                app:summary="https://github.com/LagradOst/QuickNovel">
+                app:summary="https://github.com/orubus-dev/buks">
             <intent
                     android:action="android.intent.action.VIEW"
-                    android:data="https://github.com/LagradOst/QuickNovel" />
+                    android:data="https://github.com/orubus-dev/buks" />
         </Preference>
 
         <Preference

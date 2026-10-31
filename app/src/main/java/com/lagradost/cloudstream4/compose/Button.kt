@@ -17,7 +17,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.onFocusChanged
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
-import com.lagradost.quicknovel.R
+import app.orubus.buks.R
 
 
 @Composable

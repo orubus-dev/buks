@@ -4,7 +4,7 @@ import android.content.Context
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.compose.ui.platform.LocalContext
-import com.lagradost.quicknovel.util.Apis.Companion.apis
+import app.orubus.buks.util.Apis.Companion.apis
 import com.mihon.common.preference.AndroidPreferenceStore
 import com.mihon.common.preference.PreferenceStore
 import kotlinx.collections.immutable.toPersistentHashSet
