@@ -2,8 +2,10 @@ package app.orubus.buks.plugins
 
 import android.util.Base64
 import android.util.Log
-import com.dokar.quickjs.QuickJs
 import com.dokar.quickjs.quickJs
+import com.dokar.quickjs.binding.asyncFunction
+import com.dokar.quickjs.binding.define
+import com.dokar.quickjs.binding.function
 import app.orubus.buks.MainActivity.Companion.app
 import com.fasterxml.jackson.core.type.TypeReference
 import com.fasterxml.jackson.module.kotlin.jacksonObjectMapper
@@ -16,7 +18,7 @@ import kotlinx.coroutines.coroutineScope
  * with a small, auditable host bridge — plugins never get raw Java objects:
  *
  *  - `buksHttpGet(url, headersJson?) -> string`   GET, returns the body text
- *  - `buksHttpPost(url, bodyJson?, headersJson?) -> string`
+ *  - `buksHttpPost(url, formJson?, headersJson?) -> string`  form-encoded POST (formJson = {"field":"value"})
  *  - `console.log/warn/error(...)`                routed to logcat
  *  - `buksStoreGet(key) -> string?`               per-plugin key/value storage
  *  - `buksStoreSet(key, value?)`
@@ -51,14 +53,18 @@ object JsPluginEngine {
                     app.get(url, headers = argHeaders(args)).text
                 }
                 asyncFunction("buksHttpPost") { args ->
-                    val url = argString(args, 0, "buksHttpPost(url, body, headers)")
-                    val body = args.getOrNull(1)?.toString().orEmpty()
-                    app.post(url, data = body, headers = argHeaders(args, offset = 2)).text
+                    val url = argString(args, 0, "buksHttpPost(url, formJson, headers)")
+                    val form = args.getOrNull(1)?.let { raw ->
+                        (raw as? String)?.takeIf { it.isNotBlank() }?.let {
+                            headersMapper.readValue(it, object : TypeReference<Map<String, String>>() {})
+                        }
+                    }
+                    app.post(url, data = form, headers = argHeaders(args, offset = 2)).text
                 }
                 asyncFunction("buksStoreGet") { args ->
                     store.get(plugin.id, argString(args, 0, "buksStoreGet(key)"))
                 }
-                function("buksStoreSet") { args ->
+                asyncFunction("buksStoreSet") { args ->
                     val key = argString(args, 0, "buksStoreSet(key, value)")
                     store.set(plugin.id, key, args.getOrNull(1)?.toString())
                     null
