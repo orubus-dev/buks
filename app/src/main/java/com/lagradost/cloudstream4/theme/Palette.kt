@@ -23,6 +23,7 @@ enum class CloudStreamPrimaryColor(val color: Color) {
     DANDELION_YELLOW(Color(0xFFF5BB00)),
     COOL_BLUE(Color(0xFF408CAC)),
     LAVENDER(Color(0xFF6F55AF)),
+    MONOCHROME(Color(0xFFF2F2F2)),
     DYNAMIC(Color(0xFF3D50FA)),
     DYNAMIC_TWO(Color(0xFF3D50FA)),
 }

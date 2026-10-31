@@ -336,4 +336,32 @@
     <string name="apk_installer_settings_des">Some devices do not support the new package installer. Try the legacy option if updates do not install.</string>
     <string name="apk_installer_legacy">Legacy</string>
     <string name="apk_installer_package_installer">PackageInstaller</string>
+
+    <!-- Browse / extensions -->
+    <string name="title_browse">Browse</string>
+    <string name="import_books_browse">Import from storage (browser)</string>
+    <string name="download_all_unread">Download all unread</string>
+    <string name="download_all_undownloaded">Download all un-downloaded</string>
+    <string name="download_chapter_range">Download chapter range</string>
+    <string name="select_chapters">Select chapters</string>
+    <string name="download_selected">Download selected</string>
+    <string name="download_selected_zero">0 selected</string>
+    <string name="download_selected_count">%d selected</string>
+    <string name="download_range_from">From chapter</string>
+    <string name="download_range_to">To chapter</string>
+    <string name="download_threads_title">Parallel chapter downloads</string>
+    <string name="download_threads_desc">Chapters download at the same time (faster). Applies to new downloads.</string>
+    <string name="reader_manga_modes">Manga reading mode</string>
+    <string name="extensions_available">Available</string>
+    <string name="extensions_installed">Installed</string>
+    <string name="extensions_install">Install</string>
+    <string name="extensions_update">Update</string>
+    <string name="extensions_remove">Remove</string>
+    <string name="extensions_loading_error">Couldn\'t load the extension repo:\n%s</string>
+    <string name="extensions_retry">Retry</string>
+    <string name="extensions_none_installed">No extensions installed yet.\nInstall sources from the Available tab.</string>
+    <string name="extensions_manga_badge">Manga</string>
+    <string name="extensions_updated_badge">Update</string>
+    <string name="extensions_failed">Failed: %s</string>
+    <string name="extensions_refresh">Refresh</string>
 </resources>

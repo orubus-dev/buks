@@ -57,6 +57,7 @@ import app.orubus.buks.mvvm.observe
 import app.orubus.buks.mvvm.observeNullable
 import app.orubus.buks.mvvm.safe
 import app.orubus.buks.network.CloudflareKiller
+import app.orubus.buks.plugins.PluginRegistry
 import app.orubus.buks.providers.RedditProvider
 import app.orubus.buks.ui.ReadType
 import app.orubus.buks.ui.common.ImmutableSearchResponse
@@ -529,6 +530,7 @@ class MainActivity : AppCompatActivity() {
             R.id.navigation_download,
             R.id.navigation_search,
             R.id.navigation_settings,
+            R.id.navigation_extensions,
         ).contains(destination.id)
 
         binding?.apply {
@@ -550,6 +552,7 @@ class MainActivity : AppCompatActivity() {
         val settingsManager = PreferenceManager.getDefaultSharedPreferences(this)
         CommonActivity.loadThemes(this)
         CommonActivity.init(this)
+        PluginRegistry.init(this)
 
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)

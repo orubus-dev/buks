@@ -39,6 +39,7 @@ fun perfToColor(perf : String?) = when (perf) {
     "NavyBlue" -> CloudStreamPrimaryColor.NAVY_BLUE
     "Grey" -> CloudStreamPrimaryColor.GREY
     "White" -> CloudStreamPrimaryColor.WHITE
+    "Monochrome" -> CloudStreamPrimaryColor.MONOCHROME
     "Brown" -> CloudStreamPrimaryColor.BROWN
     "Orange" -> CloudStreamPrimaryColor.ORANGE
     "DandelionYellow" -> CloudStreamPrimaryColor.DANDELION_YELLOW

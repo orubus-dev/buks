@@ -39,8 +39,14 @@ class ChapterAdapter(val viewModel: ResultViewModel) :
         card: ChapterData,
         viewModel: ResultViewModel
     ) {
-        val alpha = if (viewModel.hasReadChapter(chapter = card)) 0.5F else 1.0F
+        val selected = viewModel.isChapterSelected(card)
+        val alpha = when {
+            selected -> 0.35F
+            viewModel.hasReadChapter(chapter = card) -> 0.5F
+            else -> 1.0F
+        }
 
+        binding.name.text = if (selected) "✓ ${card.name}" else card.name
         binding.name.alpha = alpha
         binding.releaseDate.alpha = alpha
     }
@@ -52,12 +58,22 @@ class ChapterAdapter(val viewModel: ResultViewModel) :
             releaseDate.text = item.dateOfRelease
             releaseDate.isGone = item.dateOfRelease.isNullOrBlank()
             root.setOnClickListener {
-                viewModel.streamRead(item)
-                viewModel.isResume = true//to update read status
+                if (viewModel.chapterSelectionMode) {
+                    viewModel.toggleChapterSelected(item)
+                    refresh(binding, item, viewModel)
+                } else {
+                    viewModel.streamRead(item)
+                    viewModel.isResume = true//to update read status
+                }
             }
             root.setOnLongClickListener {
-                viewModel.setReadChapter(chapter = item, !viewModel.hasReadChapter(item))
-                refresh(binding, item, viewModel)
+                if (viewModel.chapterSelectionMode) {
+                    viewModel.toggleChapterSelected(item)
+                    refresh(binding, item, viewModel)
+                } else {
+                    viewModel.setReadChapter(chapter = item, !viewModel.hasReadChapter(item))
+                    refresh(binding, item, viewModel)
+                }
                 return@setOnLongClickListener true
             }
             refresh(binding, item, viewModel)

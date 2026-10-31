@@ -290,6 +290,14 @@ object SettingScreen : SearchableSettings {
                         preference = settings.updates.apkInstaller
                     ),
 
+                    Preference.PreferenceItem.ListPreference(
+                        title = stringResource(R.string.download_threads_title),
+                        subtitle = stringResource(R.string.download_threads_desc),
+                        icon = painterResource(R.drawable.mobile_wrench_24px),
+                        entries = (1..8).associateWith { it.toString() },
+                        preference = settings.download.parallelDownloads
+                    ),
+
                     Preference.PreferenceItem.SwitchPreference(
                         icon = painterResource(R.drawable.notifications_active_24px),
                         title = stringResource(R.string.show_app_updates),

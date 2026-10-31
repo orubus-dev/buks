@@ -34,6 +34,11 @@ class AppSettings internal constructor(
     val provider = ProviderPreferences(preferences)
     val updates = UpdatePreferences(preferences)
     val reader = ReaderPreferences(preferences)
+    val download = DownloadPreferences(preferences)
+}
+
+class DownloadPreferences(preferences: PreferenceStore) {
+    val parallelDownloads = preferences.getInt("download_threads", 3)
 }
 
 class ReaderPreferences(preferences: PreferenceStore) {

@@ -69,11 +69,12 @@ import app.orubus.buks.providers.WtrLabProvider
 import app.orubus.buks.providers.WuxiaBoxProvider
 import app.orubus.buks.providers.WuxiaClickProvider
 import app.orubus.buks.providers.WuxiaWorldProvider
+import app.orubus.buks.plugins.PluginRegistry
 import app.orubus.buks.util.Coroutines.ioSafe
 
 class Apis {
     companion object {
-        val apis: List<MainAPI> = arrayOf(
+        val builtinApis: List<MainAPI> = arrayOf(
             //AllProvider(),
             AllNovelProvider(),
             AnnasArchive(),
@@ -150,6 +151,15 @@ class Apis {
             //WuxiaWorldOnlineProvider(), // Site does not work
             //WuxiaWorldSiteProvider(),
         ).sortedBy { it.name }
+
+        /** All sources: built-in providers + installed JS extensions. */
+        var apis: List<MainAPI> = builtinApis
+
+        fun refreshApis() {
+            val plugins = PluginRegistry.sources
+                .filter { p -> builtinApis.none { it.name == p.name } }
+            apis = (builtinApis + plugins).sortedBy { it.name }
+        }
 
         fun getApiFromName(name: String): APIRepository {
             return getApiFromNameOrNull(name) ?: APIRepository(apis[1])

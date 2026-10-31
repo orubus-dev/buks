@@ -6,6 +6,7 @@ import androidx.appcompat.app.AlertDialog
 import androidx.core.net.toUri
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.viewModelScope
 import app.orubus.buks.APIRepository
 import app.orubus.buks.BaseApplication.Companion.context
@@ -18,10 +19,15 @@ import app.orubus.buks.BookDownloader2Helper
 import app.orubus.buks.BookDownloader2Helper.generateId
 import app.orubus.buks.ChapterData
 import app.orubus.buks.CommonActivity.activity
+import app.orubus.buks.plugins.JsMangaSource
+import app.orubus.buks.ui.manga.MangaReaderActivity
 import app.orubus.buks.DOWNLOAD_EPUB_LAST_ACCESS
 import app.orubus.buks.DownloadActionType
 import app.orubus.buks.DownloadProgressState
 import app.orubus.buks.DownloadState
+import app.orubus.buks.DOWNLOAD_RANGE_END
+import app.orubus.buks.DOWNLOAD_RANGE_ONLY
+import app.orubus.buks.DOWNLOAD_SKIP_READ
 import app.orubus.buks.EPUB_CURRENT_POSITION
 import app.orubus.buks.EPUB_CURRENT_POSITION_CHAPTER
 import app.orubus.buks.EPUB_CURRENT_POSITION_READ_AT
@@ -338,6 +344,18 @@ class ResultViewModel : ViewModel() {
                 }
             }
 
+            // Manga plugin sources open the image reader instead of the text reader
+            val mangaApi = Apis.getApiFromNameNull(apiName)
+            if (mangaApi is JsMangaSource) {
+                activity?.let { act ->
+                    val idx = chapter?.let { chapterIndex(it) }?.takeIf { it >= 0 } ?: -1
+                    act.startActivity(
+                        MangaReaderActivity.newIntent(act, load.url, apiName, idx)
+                    )
+                }
+                return@withLock
+            }
+
             BookDownloader2.stream(load, apiName)
         }
     }
@@ -421,12 +439,52 @@ class ResultViewModel : ViewModel() {
         }
     }
 
-    fun downloadFrom(start: Int?) = viewModelScope.launchSafe {
+    fun downloadFrom(start: Int?) = enqueueDownload(start, null, null, skipRead = false)
+
+    fun downloadRange(startIndex: Int, endIndexInclusive: Int) =
+        enqueueDownload(startIndex.coerceAtLeast(0), endIndexInclusive, null, skipRead = false)
+
+    /** Existing chapter files are skipped automatically by the downloader. */
+    fun downloadUnDownloaded() = enqueueDownload(null, null, null, skipRead = false)
+
+    fun downloadUnread() = enqueueDownload(null, null, null, skipRead = true)
+
+    fun downloadSelected(chapters: Set<ChapterData>) {
+        val stream = load as? StreamResponse ?: return
+        val indexes = stream.data.withIndex().filter { it.value in chapters }.map { it.index }
+        if (indexes.isEmpty()) return
+        clearChapterSelection()
+        setChapterSelectionMode(false)
+        enqueueDownload(indexes.min(), stream.data.size - 1, indexes.toSet(), skipRead = false)
+    }
+
+    private fun enqueueDownload(
+        start: Int?,
+        endInclusive: Int?,
+        only: Set<Int>?,
+        skipRead: Boolean,
+    ) = viewModelScope.launchSafe {
         loadMutex.withLock {
             if (!hasLoaded) return@launchSafe
             val api = repo ?: return@launchSafe
+            val stream = load as? StreamResponse ?: return@launchSafe
             BookDownloader2.downloadInfoMutex.withLock {
                 BookDownloader2.changeDownloadStart(load, api, start)
+                if (endInclusive != null) {
+                    setKey(DOWNLOAD_RANGE_END, loadId.toString(), (endInclusive + 1).coerceAtMost(stream.data.size))
+                } else {
+                    removeKey(DOWNLOAD_RANGE_END, loadId.toString())
+                }
+                if (only != null) {
+                    setKey(DOWNLOAD_RANGE_ONLY, loadId.toString(), only.toList())
+                } else {
+                    removeKey(DOWNLOAD_RANGE_ONLY, loadId.toString())
+                }
+                if (skipRead) {
+                    setKey(DOWNLOAD_SKIP_READ, loadId.toString(), true)
+                } else {
+                    removeKey(DOWNLOAD_SKIP_READ, loadId.toString())
+                }
                 downloadProgress[loadId]?.let { downloadState ->
                     when (downloadState.state) {
                         DownloadState.IsPaused -> BookDownloader2.addPendingAction(
@@ -446,6 +504,42 @@ class ResultViewModel : ViewModel() {
                 }
             }
         }
+    }
+
+    // ------------------------------------------------- chapter selection
+
+    private val _selectedChapters = MutableLiveData<Set<ChapterData>>(emptySet())
+    val selectedChapters: LiveData<Set<ChapterData>> = _selectedChapters
+
+    private val _chapterSelectionMode = MutableLiveData(false)
+    val chapterSelectionModeLive: LiveData<Boolean> = _chapterSelectionMode
+
+    var chapterSelectionMode = false
+        private set
+
+    val hasStreamChapters: Boolean
+        get() = load is StreamResponse
+
+    val chapterSelectionCount: Int
+        get() = _selectedChapters.value?.size ?: 0
+
+    fun setChapterSelectionMode(enabled: Boolean) {
+        chapterSelectionMode = enabled
+        _chapterSelectionMode.value = enabled
+        if (!enabled) _selectedChapters.value = emptySet()
+    }
+
+    fun isChapterSelected(chapter: ChapterData): Boolean =
+        chapterSelectionMode && _selectedChapters.value?.contains(chapter) == true
+
+    fun toggleChapterSelected(chapter: ChapterData) {
+        if (!chapterSelectionMode) return
+        val current = _selectedChapters.value ?: emptySet()
+        _selectedChapters.value = if (chapter in current) current - chapter else current + chapter
+    }
+
+    fun clearChapterSelection() {
+        _selectedChapters.value = emptySet()
     }
 
     fun download() = viewModelScope.launchSafe {

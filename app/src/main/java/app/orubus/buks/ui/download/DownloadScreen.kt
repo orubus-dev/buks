@@ -187,6 +187,15 @@ fun DownloadScreen(
                             onDismissRequest = { expanded = false }
                         ) {
                             DropdownMenuItem(
+                                text = { Text(stringResource(R.string.import_books_browse)) },
+                                onClick = {
+                                    expanded = false
+                                    context.startActivity(
+                                        app.orubus.buks.ui.importbooks.ImportBooksActivity.newIntent(context)
+                                    )
+                                }
+                            )
+                            DropdownMenuItem(
                                 text = { Text(stringResource(R.string.import_epub)) },
                                 onClick = {
                                     expanded = false

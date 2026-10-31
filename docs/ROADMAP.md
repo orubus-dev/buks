@@ -23,10 +23,17 @@ plugin kinds — through one engine.
   type `novel|manga|importer`, language, base URL, capabilities). Plugins can be
   bundled in the APK or loaded from remote repos (a plain GitHub repo of
   manifests — same shape as our own releases).
-- **Status:** engine dependency + runtime skeleton landed on `dev`; LNReader
-  plugin compatibility adapters come with the first extension batch.
+- **Status:** shipped in **2.0.0** — engine + host bridge + CommonJS runtime,
+  LNReader-compatible plugin format, Browse install flow and the
+  `orubus-dev/plugins` repo with 187 English novel sources.
 
 ## 2. Manga support
+
+> **Shipped in 2.0.0:** manga plugin type (`popularManga / searchManga /
+> mangaDetails / chapterList / pageList`), bundled MangaDex source (official
+> API) and the image reader (webtoon / paged / RTL, pinch-zoom, resume).
+> Manga chapter *downloads* (image saving) are planned next; so is loading
+> Mihon APK extensions through the same runtime bridge.
 
 - New plugin type `manga` with capabilities: search, popular/latest, details,
   chapter list, page list (image URLs).
@@ -103,10 +110,15 @@ plugin kinds — through one engine.
 
 ## Ship order
 
-1. Engine + plugin skeleton (this branch)
-2. Book import overhaul + auto-match (self-contained, no engine dependency)
-3. LNReader adapter + first extension batch + manga type + reader modes
-4. Reader power suite
-5. 50 English plugins in batches of 10
-6. Liquid glass monochrome reskin across the three main surfaces
+1. ~~Engine + plugin skeleton~~ — shipped 2.0.0
+2. ~~Book import overhaul + auto-match~~ — shipped 2.0.0 (path browser,
+   multi-select, auto match finding)
+3. ~~LNReader adapter + first extension batch + manga type + reader modes~~ —
+   shipped 2.0.0 (187 English sources, MangaDex, webtoon/paged/RTL reader)
+4. Reader power suite (visual options polish, auto-scroll / RSVP, names
+   replacement, upgraded TTS panel)
+5. ~~50 English plugins in batches of 10~~ — exceeded: 187 shipped 2.0.0
+6. ~~Liquid glass monochrome reskin~~ — started 2.0.0 (Monochrome accent,
+   GlassSurface, blur-behind sheets); extend to library shelf + reader menu
 7. Cloud sync (as soon as Firebase credentials arrive)
+8. Manga chapter downloads + Mihon APK extension loading

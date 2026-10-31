@@ -420,6 +420,55 @@ class ResultFragment : BaseFragment<FragmentResultBinding>(
             R.string.stop -> {
                 viewModel.stop()
             }
+
+            R.string.download_all_unread -> {
+                viewModel.downloadUnread()
+            }
+
+            R.string.download_all_undownloaded -> {
+                viewModel.downloadUnDownloaded()
+            }
+
+            R.string.download_chapter_range -> {
+                val chapters =
+                    ((viewModel.loadResponse.value as? Resource.Success)?.value as? StreamResponse)?.data
+                        ?: return
+
+                val act = CommonActivity.activity ?: return
+
+                val builder: AlertDialog.Builder =
+                    AlertDialog.Builder(act, R.style.AlertDialogCustom)
+
+                val container = android.widget.LinearLayout(act).apply {
+                    orientation = android.widget.LinearLayout.VERTICAL
+                    setPadding(48, 24, 48, 0)
+                }
+                val fromEdit = android.widget.EditText(act).apply {
+                    hint = "1"
+                    inputType = android.text.InputType.TYPE_CLASS_NUMBER
+                }
+                val toEdit = android.widget.EditText(act).apply {
+                    hint = chapters.size.toString()
+                    inputType = android.text.InputType.TYPE_CLASS_NUMBER
+                }
+                container.addView(fromEdit)
+                container.addView(toEdit)
+
+                builder.setView(container)
+                    .setTitle(R.string.download_chapter_range)
+                    .setPositiveButton(R.string.download) { _, _ ->
+                        val from = (fromEdit.text?.toString()?.toIntOrNull() ?: 1).coerceAtLeast(1)
+                        val to = (toEdit.text?.toString()?.toIntOrNull() ?: chapters.size)
+                            .coerceIn(from, chapters.size)
+                        viewModel.downloadRange(from - 1, to - 1)
+                    }
+                    .setNegativeButton(R.string.cancel, null)
+                    .show()
+            }
+
+            R.string.select_chapters -> {
+                viewModel.setChapterSelectionMode(true)
+            }
         }
     }
 
@@ -475,6 +524,14 @@ class ResultFragment : BaseFragment<FragmentResultBinding>(
 
         if (progressState.progress > 0) {
             items.add(R.string.delete)
+        }
+
+        // batch actions — always available when the chapter list is loaded
+        if (viewModel.hasStreamChapters) {
+            items.add(R.string.download_all_unread)
+            items.add(R.string.download_all_undownloaded)
+            items.add(R.string.download_chapter_range)
+            items.add(R.string.select_chapters)
         }
         return items
     }
@@ -676,9 +733,35 @@ class ResultFragment : BaseFragment<FragmentResultBinding>(
             }
         }
 
+        // chapter selection bar
+        binding.chapterSelectionClose.setOnClickListener {
+            viewModel.setChapterSelectionMode(false)
+        }
+        binding.chapterSelectionDownload.setOnClickListener {
+            val sel = viewModel.selectedChapters.value ?: emptySet()
+            if (sel.isNotEmpty()) {
+                viewModel.downloadSelected(sel)
+            }
+        }
+        viewModel.selectedChapters.observe(this) { sel ->
+            binding.chapterSelectionCount.text =
+                getString(R.string.download_selected_count, sel.size)
+            binding.chapterSelectionDownload.isEnabled = sel.isNotEmpty()
+        }
+        viewModel.chapterSelectionModeLive.observe(this) { mode ->
+            binding.chapterSelectionBar.isVisible = mode
+            (binding.chapterList.adapter as? ChapterAdapter)?.notifyDataSetChanged()
+        }
+
         binding.chaptersFab.setOnClickListener { _ ->
             val act = activity ?: return@setOnClickListener
             val bottomSheetDialog = BottomSheetDialog(act)
+            if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.S) {
+                bottomSheetDialog.window?.addFlags(
+                    android.view.WindowManager.LayoutParams.FLAG_BLUR_BEHIND
+                )
+                bottomSheetDialog.window?.setBackgroundBlurRadius(60)
+            }
             val binding = ChapterFilterPopupBinding.inflate(act.layoutInflater, null, false)
             bottomSheetDialog.setContentView(binding.root)
 

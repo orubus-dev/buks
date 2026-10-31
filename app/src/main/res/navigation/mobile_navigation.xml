@@ -38,6 +38,12 @@
             android:layout_height="match_parent">
     </fragment>
     <fragment
+            android:id="@+id/navigation_extensions"
+            android:name="app.orubus.buks.ui.extensions.ExtensionsFragment"
+            android:label="@string/title_browse"
+            android:layout_height="match_parent">
+    </fragment>
+    <fragment
             android:id="@+id/navigation_history"
             android:name="app.orubus.buks.ui.history.HistoryFragment"
             android:label="@string/title_download"

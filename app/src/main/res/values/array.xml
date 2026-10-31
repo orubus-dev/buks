@@ -67,6 +67,7 @@
         <item>Pink Pain</item>
         <item>Material You</item>
         <item>Material You (Secondary)</item>
+        <item>Monochrome</item>
     </string-array>
     <string-array name="themes_overlay_names_values">
         <item>Normal</item>
@@ -87,6 +88,7 @@
         <item>Pink</item>
         <item>Monet</item>
         <item>Monet2</item>
+        <item>Monochrome</item>
     </string-array>
 
     <array name="readerBgColors">

@@ -79,6 +79,9 @@ abstract class MainAPI {
         throw NotImplementedError()
     }
 
+    /** Manga sources only: image urls for a chapter. */
+    open suspend fun loadPages(url: String): List<String> = emptyList()
+
     /*open suspend fun loadEpub(link: DownloadLinkType): ByteArray {
         if (link is DownloadLink) {
             return MainActivity.app.get(
