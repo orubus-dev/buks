@@ -85,10 +85,10 @@ object JsPluginEngine {
         }
     }
 
-    private fun argString(args: List<Any?>, index: Int, what: String): String =
+    private fun argString(args: Array<Any?>, index: Int, what: String): String =
         args.getOrNull(index) as? String ?: throw IllegalArgumentException("expected string at [$index]: $what")
 
-    private fun argHeaders(args: List<Any?>, offset: Int = 1): Map<String, String> {
+    private fun argHeaders(args: Array<Any?>, offset: Int = 1): Map<String, String> {
         val raw = args.getOrNull(offset) as? String ?: return emptyMap()
         if (raw.isBlank()) return emptyMap()
         return runCatching {
